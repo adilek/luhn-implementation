@@ -17,7 +17,8 @@ int main() {
     
     for (int i=0;i<l;i++) {
         if (i%2==1) {
-            checksum+=sumOfDigits(card_number[i]*2);
+            int doubling = card_number[i]*2;
+            checksum+= (doubling > 9) ? doubling - 9 : doubling;
         }else{
             checksum+=card_number[i];
         }
@@ -28,15 +29,6 @@ int main() {
     
                     
     return 0;
-}
-
-int sumOfDigits (int number) {
-    int sum = 0;
-    while (number>0) {
-        sum+=number%10;
-        number /= 10;
-    }   
-    return sum;
 }
 
 int getNumLength (long long number) {
