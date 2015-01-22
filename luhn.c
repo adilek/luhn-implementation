@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
+//#define IMPLEMENTATION2
+
 int getNumLength (long long);
 int sumOfDigits(int);
 int getCardType(int);
@@ -15,14 +17,27 @@ int main() {
         card_number_input = card_number_input /10;          
     }
     
+#ifndef IMPLEMENTATION2
     for (int i=0;i<l;i++) {
         if (i%2==1) {
-            checksum+=sumOfDigits(card_number[i]*2);
+            //checksum+=sumOfDigits(card_number[i]*2);
+            int doubling = card_number[i]*2;
+            checksum+= (doubling > 9)? doubling -9 : doubling;
         }else{
             checksum+=card_number[i];
         }
 
     }
+#else
+    int inc = l%2;
+ 
+    for (int i=0;i<l;i++) {
+    int digit = card_number[i];
+  
+    int n = digit * (2 - (i + inc) %2);
+    checksum+= (n > 9)? n - 9 : n;
+    }
+#endif
     
     if (checksum%10==0) printf("VALID\n");
     
@@ -30,6 +45,7 @@ int main() {
     return 0;
 }
 
+/*
 int sumOfDigits (int number) {
     int sum = 0;
     while (number>0) {
@@ -38,6 +54,7 @@ int sumOfDigits (int number) {
     }   
     return sum;
 }
+*/
 
 int getNumLength (long long number) {
     int l = 1;    
